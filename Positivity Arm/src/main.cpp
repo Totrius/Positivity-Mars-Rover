@@ -20,13 +20,20 @@ void setup() {
   WiFi.begin(SSID, PASS);
 
   while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
   }
   Serial.printf("\nAdres IP: ");
   Serial.println(WiFi.localIP());
+  Serial.println(           SSID);
+  Serial.println(           PASS);
+
+  delay(2000);
   
   
 //tutaj odbywa sie obsługa zapytań
 serwer.on("/", HTTP_GET, [](AsyncWebServerRequest *request){ //na otrzymane od klienta zapytanie pod adresem "/" typu GET, 
+  Serial.println("dostalem cos niecos");
+  delay(500);
     request->send(SPIFFS, "/index.html", "text/html");           //odpowiedz mu kodem 200, danymi tekstowymi, o treści "Witaj! :)"
   });
   serwer.begin();
