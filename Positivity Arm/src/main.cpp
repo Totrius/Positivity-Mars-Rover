@@ -4,8 +4,10 @@
 #include <ESPAsyncWebServer.h>
 #include "creds.h"
 
-#define RXp2 16
-#define TXp2 17
+#include "structures.h"
+
+#define RXp2 23
+#define TXp2 22
 
 
 AsyncWebServer serwer(80);
@@ -24,9 +26,7 @@ void setup() {
   }
   Serial.printf("\nAdres IP: ");
   Serial.println(WiFi.localIP());
-  Serial.println(           SSID);
-  Serial.println(           PASS);
-
+  
   delay(2000);
   
   
@@ -39,10 +39,18 @@ serwer.on("/", HTTP_GET, [](AsyncWebServerRequest *request){ //na otrzymane od k
   serwer.begin();
 }
 void loop() {
-    Serial2.println("10");
-    delay(2500);
-    Serial2.println("160");
-    delay(2500);
+  struct datagram_servo mydata;
+  mydata.servo_id = 1;
+  mydata.type = 1;
+  mydata.servo_position = 0;
+  send_data(sizeof(mydata), (byte*) &mydata);
 
-    
+  delay(2500);
+
+  mydata.servo_id = 1;
+  mydata.type = 1;
+  mydata.servo_position = 180;
+  send_data(sizeof(mydata), (byte*) &mydata);
+
+  delay(2500);    
 }
