@@ -77,13 +77,13 @@ void odczyt() {
         {
           case 1: {
             //zamykanie
-            kroki = 34;
+            kroki = 256;
             ruchLyzki = true;
             break;
           }
           case 2: {
             //otwieranie
-            kroki = -34;
+            kroki = -256;
             ruchLyzki = true;
             break;
           }
@@ -93,15 +93,20 @@ void odczyt() {
             break;
           }       
         
-        }       
+        }
+        break;       
       }
      
-      // case 3: {
-      //   //to jest czujnik dymu
-      // }
+      case 3: {
+        //prosba o pomiary
+        makeMeasurements();
+        break;
+      }
     }
 }
+void makeMeasurements() {
 
+}
 void moveManipulator (int id, int ink){
   pozycjeServRamienia[id] = pozycjeServRamienia[id]+ ink;
   if (pozycjeServRamienia[id] >=180){

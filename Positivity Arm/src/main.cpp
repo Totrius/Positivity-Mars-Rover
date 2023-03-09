@@ -8,9 +8,10 @@
 
 #include "structures.h"
 
-#define RXp2 23
-#define TXp2 22
-
+#define RXp2 23 
+#define TXp2 22 
+#define RXp1 21 
+#define TXp1 19 
 
 AsyncWebServer serwer(80);
 struct datagram_servo mydata;
@@ -21,6 +22,9 @@ void toSend(char type, char id, char action){
   mydata.servo_action = action;
   send_data(sizeof(mydata), (byte*) &mydata);
 }
+void sendToRover (char id){
+  Serial1.write(id);
+}
 void setup() {
   esp_log_level_set("*", ESP_LOG_ERROR);        // set all components to ERROR level
   esp_log_level_set("wifi", ESP_LOG_WARN);      // enable WARN logs from WiFi stack
@@ -29,6 +33,7 @@ void setup() {
 
   Serial.begin(115200);
   Serial2.begin(9600, SERIAL_8N1, RXp2, TXp2);
+  Serial1.begin(9600, SERIAL_8N1, RXp1, TXp1);
   if(!SPIFFS.begin(true)){
     Serial.println("An Error has occurred while mounting SPIFFS");
     return;
@@ -129,11 +134,63 @@ serwer.on("/hStop", HTTP_GET, [](AsyncWebServerRequest *request){
   toSend(2, 0, 3);  
   request->send(200, "text/plain", "");                                
 });
+serwer.on("/pomiary", HTTP_GET, [](AsyncWebServerRequest *request){
+  toSend(3, 0, 0);  
+  request->send(200, "text/plain", "");                                
+});
+
+// lazik:
+serwer.on("/lazikPrzod", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(1);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/lazikTyl", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(2);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/lazikObrotLewo", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(3);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/lazikObrotPrawo", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(4);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/lazikStop", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(0);
+  request->send(200, "text/plain", "");                                
+});
+// kamera
+serwer.on("/kameraGora", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(8);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/kameraDol", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(9);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/kameraLewo", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(6);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/kameraPrawo", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(7);
+  request->send(200, "text/plain", "");                                
+});
+serwer.on("/kameraStop", HTTP_GET, [](AsyncWebServerRequest *request){
+  sendToRover(5);
+  request->send(200, "text/plain", "");                                
+});
+
 
  serwer.begin();
 }
-// "klapkaPojemnikaGora", "klapkaPojemnikaDol", "pojemnikObrotLewo", "pojemnikObrotPrawo"
+
 void loop() {
+  if (Serial2.available())
+  {
+    Serial.println(Serial2.read());
+  }
 }
 
 // #include <sstream>
