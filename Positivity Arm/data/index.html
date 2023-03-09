@@ -2,18 +2,82 @@
 <html>
 
 <head>
-    <title>Serwowanie</title>
+    <title>Positivity Mars Rover</title>
     <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
 
-    <input type="number" id="pole"/>
-    <input type="submit" value="Ustaw servo" />
-
-<script>
-
-</script>
+    <div id="pojemnik">
+        <div class="panel">
+            <div class="kafelek naglowek">Łazik</div>
+            <div class="kafelek nowyWiersz"></div>
+            <div class="kafelek przycisk" id="lazikPrzod">⭡</div>
+            <div class="kafelek"></div>
+            <div class="kafelek nowyWiersz przycisk" id="lazikObrotLewo">⭯</div>
+            <div class="kafelek"></div>
+            <div class="kafelek przycisk" id="lazikObrotPrawo">⭮</div>
+            <div class="kafelek nowyWiersz"></div>
+            <div class="kafelek przycisk" id="lazikTyl">⭣</div>
+            <div class="kafelek"></div>
+            <div class="kafelek naglowek nowyWiersz">Kamera</div>
+            <div class="kafelek nowyWiersz"></div>
+            <div class="kafelek przycisk" id="kameraGora">⭡</div>
+            <div class="kafelek"></div>
+            <div class="kafelek nowyWiersz przycisk" id="kameraLewo">⭠</div>
+            <div class="kafelek"></div>
+            <div class="kafelek przycisk" id="kameraPrawo">⭢</div>
+            <div class="kafelek nowyWiersz"></div>
+            <div class="kafelek przycisk" id="kameraDol">⭣</div>
+            <div class="kafelek"></div>
+        </div>
+        <div class="panel">
+            <div class="kafelek naglowek">Ramię</div>
+            <div class="kafelek nowyWiersz przycisk" id="czZeroMinus">-</div>
+            <div class="kafelek" >0</div>
+            <div class="kafelek przycisk" id="czZeroPlus">+</div>
+            <div class="kafelek nowyWiersz przycisk" id="czJedenMinus">-</div>
+            <div class="kafelek">1</div>
+            <div class="kafelek przycisk" id="czJedenPlus">+</div>
+            <div class="kafelek nowyWiersz przycisk" id="czDwaMinus">-</div>
+            <div class="kafelek">2</div>
+            <div class="kafelek przycisk" id="czDwaPlus">+</div>
+            <div class="kafelek nowyWiersz przycisk" id="czTrzyMinus">-</div>
+            <div class="kafelek">3</div>
+            <div class="kafelek przycisk" id="czTrzyPlus">+</div>
+            <div class="kafelek nowyWiersz przycisk" id="czCzteryMinus">-</div>
+            <div class="kafelek">4</div>
+            <div class="kafelek przycisk" id="czCzteryPlus">+</div>
+            <div class="kafelek naglowek nowyWiersz">Łyżka</div>
+            <div class="kafelek nowyWiersz przycisk" id="hClose">Z</div>
+            <div class="kafelek"></div>
+            <div class="kafelek przycisk" id="hOpen">O</div>
+        </div> 
+        <div class="panel">
+            <div class="kafelek naglowek nowyWiersz">Pojemnik</div>
+            <div class="kafelek nowyWiersz"></div>
+            <div class="kafelek przycisk" id="klapkaPojemnikaGora">⭡</div>
+            <div class="kafelek"></div>
+            <div class="kafelek nowyWiersz przycisk" id="pojemnikObrotLewo">⭯</div>
+            <div class="kafelek"></div>
+            <div class="kafelek przycisk" id="pojemnikObrotPrawo">⭮</div>
+            <div class="kafelek nowyWiersz"></div>
+            <div class="kafelek przycisk" id="klapkaPojemnikaDol">⭣</div>
+            <div class="kafelek"></div>
+            <div class="kafelek naglowek nowyWiersz przycisk">Pomiary</div>
+            <div class="kafelek naglowek nowyWiersz pomiar">Temp.</div>
+            <div class="kafelek naglowek pomiar" id="pomiarTemperatury">0</div>
+            <div class="kafelek naglowek nowyWiersz pomiar">Wilg.</div>
+            <div class="kafelek naglowek pomiar" id="pomiarWilgotnosci">0</div>
+            <div class="kafelek naglowek nowyWiersz pomiar">Kolor</div>
+            <div class="kafelek naglowek pomiar" id="pomiarKoloru">0</div>
+            <div class="kafelek naglowek nowyWiersz pomiar">Masa</div>
+            <div class="kafelek naglowek pomiar" id="pomiarMasy">0</div>
+        </div>   
+    </div>
+    
+<script src = "positivity.js"></script>
 
 </body>
 </html>
