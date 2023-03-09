@@ -13,6 +13,11 @@
 #define RXp1 21 
 #define TXp1 19 
 
+String temperatura = "17°C";
+String kolor = "bialy";
+String wilgotnosc = "40%";
+String masa = "70g";
+
 AsyncWebServer serwer(80);
 struct datagram_servo mydata;
 void toSend(char type, char id, char action){
@@ -24,6 +29,12 @@ void toSend(char type, char id, char action){
 }
 void sendToRover (char id){
   Serial1.write(id);
+}
+void readMeasurements (){
+  temperatura = Serial2.readStringUntil('\n') + "°C";
+  wilgotnosc = Serial2.readStringUntil('\n') + "%";
+  kolor = Serial2.readStringUntil('\n');
+  masa = Serial2.readStringUntil('\n') + "g";
 }
 void setup() {
   esp_log_level_set("*", ESP_LOG_ERROR);        // set all components to ERROR level
@@ -182,6 +193,24 @@ serwer.on("/kameraStop", HTTP_GET, [](AsyncWebServerRequest *request){
   request->send(200, "text/plain", "");                                
 });
 
+// pomiary
+serwer.on("/pomiarTemperatury", HTTP_GET, [](AsyncWebServerRequest *request){
+   String wartosc = temperatura;                      
+   request->send(200, "text/plain", wartosc);                          
+  });
+  serwer.on("/pomiarWilgotnosci", HTTP_GET, [](AsyncWebServerRequest *request){
+   String wartosc = wilgotnosc;                      
+   request->send(200, "text/plain", wartosc);                          
+  });
+  serwer.on("/pomiarKoloru", HTTP_GET, [](AsyncWebServerRequest *request){
+   String wartosc = kolor;                      
+   request->send(200, "text/plain", wartosc);                          
+  });
+  serwer.on("/pomiarMasy", HTTP_GET, [](AsyncWebServerRequest *request){
+   String wartosc = masa;                      
+   request->send(200, "text/plain", wartosc);                          
+  });
+
 
  serwer.begin();
 }
@@ -189,7 +218,7 @@ serwer.on("/kameraStop", HTTP_GET, [](AsyncWebServerRequest *request){
 void loop() {
   if (Serial2.available())
   {
-    Serial.println(Serial2.read());
+    readMeasurements();
   }
 }
 

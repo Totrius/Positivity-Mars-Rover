@@ -39,7 +39,15 @@ struct datagram_servo read_datagram_servo() {
   return data;
 }
 
-
+void makeMeasurements() {
+  
+  // // robisz pomiary, a potem wysylasz wszystko jako stringi
+  
+  Serial.println("22"); //temperatura
+  Serial.println("52"); //wilgotnosc
+  Serial.println("czerwony"); //kolor
+  Serial.println("120"); //masa
+}
 
 void odczyt() {
     struct datagram_servo data = read_datagram_servo();
@@ -104,9 +112,7 @@ void odczyt() {
       }
     }
 }
-void makeMeasurements() {
 
-}
 void moveManipulator (int id, int ink){
   pozycjeServRamienia[id] = pozycjeServRamienia[id]+ ink;
   if (pozycjeServRamienia[id] >=180){

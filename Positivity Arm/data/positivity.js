@@ -3,6 +3,7 @@ let tablicaId=["czZeroMinus", "czZeroPlus", "czJedenMinus", "czJedenPlus", "czDw
 
 let tablicaIdLazika=["lazikPrzod", "lazikTyl", "lazikObrotLewo", "lazikObrotPrawo"];
 let tablicaIdKamerki=["kameraGora", "kameraDol", "kameraLewo", "kameraPrawo"];
+let tablicaPomiarow = ["pomiarTemperatury", "pomiarWilgotnosci", "pomiarKoloru", "pomiarMasy"];
 window.addEventListener("DOMContentLoaded", start);
 
 function sendRequest(nazwaZapytania) {
@@ -36,6 +37,19 @@ function start () {
         });
         document.getElementById(tablicaIdKamerki[i]).addEventListener('mouseup', (event) =>{
             sendRequest(`/kameraStop`);
+        });
+    }
+
+    for (let i = 0; i<tablicaPomiarow.length; i++){
+        document.getElementById(tablicaPomiarow[i]).addEventListener('click', (event) =>{
+            const zapytanie = new XMLHttpRequest();            //wyślijmy zapytanie jak poprzednio
+            zapytanie.open("GET", `/${tablicaPomiarow[i]}`);
+            zapytanie.send();
+            zapytanie.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById(tablicaPomiarow[i]).innerHTML = this.responseText;
+                }
+            };                 
         });
     }
 
